@@ -22,7 +22,7 @@ class CotizacionController extends Controller
     public function create()
     {
         $providers = Provider::get();
-        return view('admin.cotizacion.index', compact('providers'));
+        return view('admin.cotizacion.create', compact('providers'));
 
     }
 

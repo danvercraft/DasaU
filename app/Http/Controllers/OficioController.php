@@ -18,6 +18,8 @@ class OficioController extends Controller
     public function create()
     {
         
+
+        
     }
 
 
