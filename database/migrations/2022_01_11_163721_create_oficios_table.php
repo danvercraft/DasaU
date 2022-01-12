@@ -19,6 +19,15 @@ class CreateOficiosTable extends Migration
             $table->string('titulo');
             $table->string('oficinausuario');
             $table->string('fecha');
+            $table->string('tipocontrato');
+            $table->string('estadosecretaria');
+            $table->string('estadojefe');
+            $table->string('estadosub');
+            $table->string('estadocoti');
+            $table->string('estadocomparativojefe');
+            $table->string('estadocomparativosubjefe');
+            $table->string('estadocomparativocotizador');
+
             $table->timestamps();
         });
     }
