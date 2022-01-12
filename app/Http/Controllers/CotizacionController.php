@@ -6,6 +6,8 @@ use App\Models\Cotizacion;
 use App\Http\Requests\StoreCotizacionRequest;
 use App\Http\Requests\UpdateCotizacionRequest;
 use App\Models\Provider;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CotizacionController extends Controller
 {
@@ -27,13 +29,18 @@ class CotizacionController extends Controller
 
     public function store(StoreCotizacionRequest $request)
     {
-        Cotizacion::create($request->all());
-
         if($request->hasFile('picture')){
             $file = $request->file('picture');
             $image_name = time().'_'.$file->getClientOriginalName();
             $file->move(public_path("/image"),$image_name);
         }
+        $cotizacion = Cotizacion::create($request->all()+[
+            'provider_id'=>Auth::user()->id,
+            'cotizador_id'=>Auth::user()->id,
+            'adquisicion_id'=>Auth::user()->id,
+            'fecha'=>Carbon::now('America/Lima'),
+            'firmaproveedor'=>$image_name,
+        ]);
 
         return redirect()->route('cotizacions.index');
     }
@@ -41,6 +48,7 @@ class CotizacionController extends Controller
 
     public function show(Cotizacion $cotizacion)
     {
+
         return view('admin.cotizacion.show', compact('cotizacion'));
 
     }
@@ -48,6 +56,7 @@ class CotizacionController extends Controller
 
     public function edit(Cotizacion $cotizacion)
     {
+        $providers = Provider::get();
         return view('admin.cotizacion.edit', compact('cotizacion'));
 
     }
@@ -55,7 +64,12 @@ class CotizacionController extends Controller
 
     public function update(UpdateCotizacionRequest $request, Cotizacion $cotizacion)
     {
-        $cotizacion->update($request->all());
+        if($request->hasFile('picture')){
+            $file = $request->file('picture');
+            $image_name = time().'_'.$file->getClientOriginalName();
+            $file->move(public_path("/image"),$image_name);
+        }
+        $cotizacion->update($request->all()+['firmaproveedor'=>$image_name,]);
         return redirect()->route('cotizacions.index');
     }
 

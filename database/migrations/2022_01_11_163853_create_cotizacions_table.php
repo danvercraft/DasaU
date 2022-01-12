@@ -16,13 +16,13 @@ class CreateCotizacionsTable extends Migration
         Schema::create('cotizacions', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('provider_id');
+            $table->unsignedBigInteger('provider_id')->nullable();
             $table->foreign('provider_id')->references('id')->on('providers');
 
-            $table->unsignedBigInteger('cotizador_id');
+            $table->unsignedBigInteger('cotizador_id')->nullable();
             $table->foreign('cotizador_id')->references('id')->on('users');
 
-            $table->unsignedBigInteger('adquisicion_id');
+            $table->unsignedBigInteger('adquisicion_id')->nullable();
             $table->foreign('adquisicion_id')->references('id')->on('users');
 
             $table->date('fecha');
