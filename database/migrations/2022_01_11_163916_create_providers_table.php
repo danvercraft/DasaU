@@ -15,6 +15,16 @@ class CreateProvidersTable extends Migration
     {
         Schema::create('providers', function (Blueprint $table) {
             $table->id();
+
+
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories');
+
+            $table->string('responsable');
+            $table->string('ruc');
+            $table->string('correo');
+            $table->string('telefono');
+            $table->string('firma');
             $table->timestamps();
         });
     }

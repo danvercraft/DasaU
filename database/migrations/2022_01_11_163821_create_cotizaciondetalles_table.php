@@ -15,6 +15,16 @@ class CreateCotizaciondetallesTable extends Migration
     {
         Schema::create('cotizaciondetalles', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('oficiodetalle_id');
+            $table->foreign('oficiodetalle_id')->references('id')->on('oficiodetalles');
+
+            $table->unsignedBigInteger('cotizacion_id');
+            $table->foreign('cotizacion_id')->references('id')->on('cotizacions');
+
+
+            $table->decimal('precio');
+            $table->decimal('total');
             $table->timestamps();
         });
     }

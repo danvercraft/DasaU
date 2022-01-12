@@ -15,6 +15,14 @@ class CreateOficiodetallesTable extends Migration
     {
         Schema::create('oficiodetalles', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('oficio_id');
+            $table->foreign('oficio_id')->references('id')->on('oficios');
+
+            
+            $table->string('nombre');
+            $table->integer('unidades');
+            $table->string('descripcion');
             $table->timestamps();
         });
     }
